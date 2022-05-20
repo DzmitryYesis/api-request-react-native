@@ -3,17 +3,7 @@ import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {api} from '../api/api';
 import {useAppNavigation} from './types';
 
-type Pokemon = {
-    id: number
-    name: string
-    sprites: {
-        other: {
-            'official-artwork': {
-                'front_default': string
-            }
-        }
-    }
-}
+
 
 
 type PokemonListItem = {
