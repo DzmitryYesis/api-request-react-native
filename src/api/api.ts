@@ -8,7 +8,7 @@ export const api = {
     getAllPokemon(limit:number) {
         return instance.get(`/pokemon?limit=${limit}`)
     },
-    getCurrentPokemon() {
-        return instance.get('/pokemon')
+    getCurrentPokemon(url:string) {
+        return instance.get(url)
     }
 }
