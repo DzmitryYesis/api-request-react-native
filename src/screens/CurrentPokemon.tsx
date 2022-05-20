@@ -15,20 +15,20 @@ type Pokemon = {
     }
 }
 export const CurrentPokemon = ({route}: CurrentPokemonPropsType) => {
-    const {url} = route.params
-    const [urlForRequest, setUrlForRequest] = useState(url)
 
+    const {url} = route.params
+
+    const [urlForRequest, setUrlForRequest] = useState(url)
     const [data, setData] = useState<Pokemon | null>(null)
+
+    const getCurrent = async (url: string) => {
+        const res = await api.getCurrentPokemon(url)
+        setData(res.data)
+    }
 
     useEffect(() => {
         setUrlForRequest(url.replace('https://pokeapi.co/api/v2', ''))
     }, [url])
-
-    const getCurrent = async (url: string) => {
-        const res = await api.getCurrentPokemon(url)
-        //console.log('res***', res.data)
-        setData(res.data)
-    }
 
     useEffect(() => {
         getCurrent(urlForRequest).finally(() => {
@@ -36,24 +36,40 @@ export const CurrentPokemon = ({route}: CurrentPokemonPropsType) => {
     }, [])
 
     return (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            {data ? <Image
-                    style={{width: 400, height: 400}}
+        <View style={styles.wrapper}>
+            {data ?
+                <Image
+                    style={styles.image}
                     source={{uri: data.sprites.other['official-artwork'].front_default}}/> :
                 <Text>__N/A Image__</Text>}
-            <View style={{width: 400, height: 5, backgroundColor: '#c41414'}}/>
-            {data ? <Text style={styles.name}>{data.name}</Text> :
+            <View style={styles.line}/>
+            {data ?
+                <Text style={styles.name}>{data.name}</Text> :
                 <Text>__N/A Name__</Text>}
-            <View style={{width: 400, height: 5, backgroundColor: '#c41414'}}/>
+            <View style={styles.line}/>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    wrapper: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    image: {
+        width: 400,
+        height: 400
+    },
     name: {
         fontSize: 32,
         fontWeight: '800',
         alignSelf: 'center'
+    },
+    line: {
+        width: 400,
+        height: 5,
+        backgroundColor: '#c41414'
     }
 
 })

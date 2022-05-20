@@ -3,28 +3,27 @@ import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {api} from '../api/api';
 import {useAppNavigation} from './types';
 
-
-
-
 type PokemonListItem = {
     name: string
     url: string
 }
 
-
 export const AllPokemon = () => {
+
     const [dataPokemon, setDataPokemon] = useState<PokemonListItem[] | null>(null)
     const navigation = useAppNavigation()
+
     const getPokemon = async () => {
         const result = await api.getAllPokemon(40)
         setDataPokemon(result.data.results)
     }
+
     useEffect(() => {
         getPokemon()
     }, [])
-    console.log(dataPokemon)
+
     return (
-        <View style={{flex: 1, paddingHorizontal: 20}}>
+        <View style={styles.wrapper}>
             <FlatList
                 data={dataPokemon}
                 renderItem={({item}) => {
@@ -43,6 +42,10 @@ export const AllPokemon = () => {
 };
 
 const styles = StyleSheet.create({
+    wrapper:{
+        flex: 1,
+        paddingHorizontal: 20
+    },
     row: {
         height: 48,
         backgroundColor: '#9e8787',
