@@ -41,6 +41,7 @@ export const CurrentPokemon = ({route}: CurrentPokemonPropsType) => {
                     style={{width: 400, height: 400}}
                     source={{uri: data.sprites.other['official-artwork'].front_default}}/> :
                 <Text>__N/A Image__</Text>}
+            <View style={{width: 400, height: 5, backgroundColor: '#c41414'}}/>
             {data ? <Text style={styles.name}>{data.name}</Text> :
                 <Text>__N/A Name__</Text>}
             <View style={{width: 400, height: 5, backgroundColor: '#c41414'}}/>
